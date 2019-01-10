@@ -1,0 +1,10 @@
+<editor>
+    <help>/commander/pages/@PLUGIN_NAME@/@PLUGIN_KEY@_help?s=Administration&amp;ss=Plugins#runTclsh</help>
+    <formElement>
+        <type>textarea</type>
+        <label>Script:</label>
+        <property>script</property>
+        <documentation>Tcl script to execute.</documentation>
+        <required>1</required>
+    </formElement>
+</editor>

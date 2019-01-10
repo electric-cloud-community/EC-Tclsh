@@ -1,0 +1,164 @@
+# -*-Perl-*-
+
+# tclsh-RunTclsh.ntest -
+#
+# ECTclsh
+#
+# Copyright (c) 2005-2010 Electric Cloud, Inc.
+# All rights reserved
+
+use strict;
+use ECTest;
+use ECSelenium;
+
+require "$::gTestFileDir/../../EC-Tclsh/systemtest/tclsh-common.ntest";
+
+$::grunTclshCreated = 0;
+$::gProjectImported = 0;
+$::gtestProjectName = 'TclshTestCases';
+
+#stores the result wheter the result of the procedure is success or error
+my $outcome = "";
+
+sub importProject() {
+    assertOK($::N->import(
+             { file =>"$::gTestFileDir/tclshSystemTest.xml",
+               path  => "/projects/TclshTestCases",
+               force => 1
+             } ), "import runTclshCommandLine");
+   
+    assertOK($::N->getProcedure($::gtestProjectName, 'executeTclshWithACorrectScript'),
+    "executeTclshWithACorrectScript procedure exists");
+    
+    assertOK($::N->getProcedure($::gtestProjectName, 'executeTclshWithAnIncorrectScript'),
+    "executeTclshWithAnIncorrectScript procedure exists");
+    
+    $::gProjectImported = 1;
+}
+
+sub doSetup() {
+    if(! $::gProjectImported) {
+        importProject();
+    }
+}
+ 
+#executeTclshWithACorrectScript
+#Test with a correct script
+ntest "executeTclshWithACorrectScript", {}, sub {
+      doSetup();
+      # run test job
+         my $xpath = $::N->runProcedure($::gtestProjectName, 
+                 {procedureName => "executeTclshWithACorrectScript",
+                 pollInterval  => '1',
+                 timeout => 600,
+                      actualParameter => []
+          });
+             # make sure it finished
+             my $jobId = 0;
+             my $status = "";
+             
+             assertOK($xpath, 'runProcedure with errors');
+             if ($xpath) {
+                 $jobId  = $xpath->findvalue("//jobId");
+                 $status = $xpath->findvalue("//status");
+                 $outcome = $xpath->findvalue("//outcome");
+         
+                 assertTrue($jobId && $jobId ne "",'valid job id');
+                 assertEq('completed',$status,"job $jobId complete");
+         
+                 #abort if job did not finish
+                 if ($status ne "completed") {
+                     assertOK($::N->abortJob($jobId, {force => 1}));
+                 }
+             }
+ 
+     # get the job details
+     $xpath = $::N->getJobDetails($jobId);
+ 
+     # write the job details to a file in the test directory
+     writeFile(
+        "$::gCurrentTestDir/jobDetails.log",
+        "====start Job Details====\n$xpath->{_xml}\n\n====end job details===\n\n");
+ 
+     # get the value of the tclshCommandLine property
+     my $cmd = $xpath->findvalue("//property[propertyName='tclshCommandLine']/value");
+ 
+     # make sure the $cmd is what was expected
+     assertEq(
+        'set X "This is a string"
+
+set Y 1.24
+
+puts $X
+puts $Y
+
+puts "..............................."
+
+set label "The value in Y is: "
+puts "$label $Y"', 
+        $cmd, "tclsh script");
+  };
+
+#executeTclshWithAnIncorrectScript 
+#Test with an incorrect script
+ntest "executeTclshWithAnIncorrectScript", {}, sub {
+      doSetup();
+      # run test job
+     
+         my $xpath = $::N->runProcedure($::gtestProjectName, 
+                 { procedureName => "executeTclshWithAnIncorrectScript",
+                 pollInterval  => '1',
+                 timeout => 600,
+                      actualParameter => []
+          });
+             # make sure it finished
+             my $jobId = 0;
+             my $status = "";
+             
+             assertOK($xpath, "runProcedure with errors");
+             if ($xpath) {
+                 $jobId  = $xpath->findvalue("//jobId");
+                 $status = $xpath->findvalue("//status");
+                 $outcome = $xpath->findvalue("//outcome");
+         
+                 assertTrue($jobId && $jobId ne "",'valid job id');
+                 assertEq('completed',$status,"job $jobId complete");
+                 assertEq('error',$outcome,"test error was expected");
+         
+                 #abort if job did not finish
+                 if ($status ne "completed") {
+                     assertOK($::N->abortJob($jobId, {force => 1}));
+                 }
+             }
+ 
+     # get the job details
+     $xpath = $::N->getJobDetails($jobId);
+ 
+     # write the job details to a file in the test directory
+     writeFile("$::gCurrentTestDir/jobDetails.log","====start Job Details====\n$xpath->{_xml}\n\n====end job details===\n\n");
+ 
+     # get the value of the tclshCommandLine property
+     my $cmd = $xpath->findvalue("//property[propertyName='tclshCommandLine']/value");
+ 
+     # make sure the $cmd is what was expected
+     assertEq(
+        'seet X "This is a string"
+
+set Y 1.24
+
+puts $X
+puts $Y
+
+pus "..............................."
+
+set label "The value in Y is: "
+puts "$label $Y"', 
+        $cmd, 
+        "tclsh script");
+  };
+
+
+
+
+
+    

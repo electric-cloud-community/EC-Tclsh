@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Windows (vers 25 March 2009), see www.w3.org" />
+  <meta content="text/html; charset=us-ascii" http-equiv=
+  "content-type" />
+
+  <title>ElectricFlow Plugin for Tclsh</title>
+  <link rel="stylesheet" href=
+  "../../plugins/@PLUGIN_KEY@/pluginhelp.css" type="text/css"
+  media="screen" />
+</head>
+
+<body>
+  <div class="help">
+    <h1>Tclsh</h1>
+
+    <p>Plugin Version @PLUGIN_VERSION@</p>
+    <hr style=
+    "margin-left: -10px; margin-top: 10px; height: 1px; width: 100%; color: #5981BD;"
+    noshade="noshade" />
+
+	<p>July 1, 2015</p>
+	
+    <p>Tclsh is a simple shell interpreter for writing and
+    executing Tcl scripts.</p>
+
+    <h2>Tclsh Links</h2>
+
+    <p>More information can be found at <a href=
+    "http://wiki.tcl.tk/2541">this website</a>.</p>
+
+    <h2>ElectricFlow Integration to Tclsh</h2>
+
+    <p>This plugin allows you to execute tcl code on any of the
+    available resources</p>
+
+    <h1>Plugin Procedures</h1>
+
+    <p>IMPORTANT: For all parameter descriptions below, required
+    parameters are shown in <span class='required'>bold
+    italics</span>.</p>
+    
+    <div id="runTclsh"><a name='runTclsh' id="runTclsh"></a>
+
+    <h3>runTclsh</h3>
+
+    <p>This procedure allows you to execute tcl code from a
+    textarea and shows the result in a log file.</p>
+
+    <table class="grid">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+
+          <th>Description</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td class='required'>Script</td>
+
+          <td>Tcl script to execute. (Required)</td>
+        </tr>
+      </tbody>
+    </table><img src=
+    "../../plugins/@PLUGIN_KEY@/images/Tclsh-1.png" alt=
+    "Form" /></div>
+
+    <h1 class="sectionhead">Examples and Use Cases</h1>
+
+    <p>Executing tcl code with a commander step:</p>
+
+    <h2>Execute tcl code</h2><img src=
+    "../../plugins/@PLUGIN_KEY@/images/Tclsh-1.png" alt=
+    "screenshot" />
+
+    <h2>Result</h2><img src=
+    "../../plugins/@PLUGIN_KEY@/images/Tclsh-2.png" alt=
+    "screenshot" />
+
+    <h1>Release Notes</h1>
+	
+	<h2>@PLUGIN_KEY@ 2.0.3</h2>
+
+	<ul>
+		<li>Renamed ElectricCommander to ElectricFlow.</li>
+	</ul>
+
+	<h2>@PLUGIN_KEY@ 2.0.2</h2>
+
+	<ul>
+		<li>Procedure name(s) were changed in the step picker section</li>
+	</ul>
+	
+    <h2>@PLUGIN_KEY@ 2.0.1</h2>
+    <!-- Specific descriptions of additional or changed functionality,
+    new parameters, etc. The plugin version header of this section should
+    include the speciic build number if possible. Repeat this section for
+    each version.
+    -->
+
+    <ul>
+      <li>Change Help page style</li>
+    </ul>
+
+    <h2>@PLUGIN_KEY@ 2.0.0</h2>
+
+    <ul>
+      <li>XML parameter panels</li>
+
+      <li>Code improvements</li>
+
+      <li>Help page update</li>
+    </ul>
+
+    <h2>EC-Tclsh 1.0.2</h2>
+
+    <ul>
+      <li>Updated help</li>
+    </ul>
+
+    <h2>EC-Tclsh 1.0.1</h2>
+
+    <ul>
+      <li>Fixed bugs</li>
+    </ul>
+  </div>
+</body>
+</html>
