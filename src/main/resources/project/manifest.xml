@@ -1,0 +1,15 @@
+<?xml version='1.0' standalone='yes'?>
+<fileset>
+  <file>
+    <path>tclshDriver.pl</path>
+    <xpath>//property[propertyName=&quot;tclshDriver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>forms/runTclsh.xml</path>
+    <xpath>//procedure[procedureName=&quot;runTclsh&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ec_setup.pl</path>
+    <xpath>//property[propertyName=&quot;ec_setup&quot;]/value</xpath>
+  </file>
+</fileset>
